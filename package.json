@@ -1,0 +1,86 @@
+{
+  "name": "lux-keyboard",
+  "version": "0.1.0",
+  "description": "React component + lux store utilities for managing contextual keyboard shortcut modes.",
+  "main": "src/index.js",
+  "scripts": {
+    "format": "jscs --fix ./",
+    "lint": "eslint --fix ./",
+    "cover": "nyc -r text-summary -r html -- npm run test:only",
+    "cover:show": "open \"file://$PWD/coverage/index.html\"",
+    "pretest": "npm run format && npm run lint",
+    "test": "npm run cover",
+    "test:only": "NODE_ENV=test mocha --compilers js:babel-register -R spec 'spec/**/*.spec.js' -r spec/node-setup.js",
+    "test:watch": "npm run test:only -- -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeanKit-Labs/lux-keyboard.git"
+  },
+  "author": "LeanKit",
+  "contributors": [
+    {
+      "name": "Jim Cowart",
+      "email": "jim.cowart@leankit.com",
+      "url": "http://ifandelse.com"
+    },
+    {
+      "name": "Ryan Niemeyer",
+      "email": "ryan.niemeyer@leankit.com",
+      "url": "http://www.knockmeout.net"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/LeanKit-Labs/lux-keyboard/issues"
+  },
+  "homepage": "https://github.com/LeanKit-Labs/lux-keyboard#readme",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-eslint": "^6.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015-without-strict": "0.0.4",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.14.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "dirty-chai": "^1.2.2",
+    "eslint": "^3.5.0",
+    "eslint-config-leankit": "^2.0.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-react": "~3.11.3",
+    "event-emitter": "^0.3.4",
+    "jscs": "^3.0.7",
+    "jsdom": "^9.5.0",
+    "mocha": "^3.0.2",
+    "nyc": "^7.0.0",
+    "postal": "^2.0.4",
+    "proxyquire": "^1.7.10",
+    "react-addons-test-utils": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "sinon": "^1.17.5",
+    "sinon-as-promised": "^4.0.2",
+    "sinon-chai": "^2.8.0"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "all": true,
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": true,
+    "instrument": true
+  },
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "lux.js": "^2.0.0-5",
+    "react": "^15.3.2"
+  }
+}
