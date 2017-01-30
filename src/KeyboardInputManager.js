@@ -10,8 +10,8 @@ import { each } from "lodash";
 import Mousetrap from "./MousetrapWrapper";
 
 function catchThatMouse( handlers ) {
-	each( handlers, ( { actionName, notGlobal }, keyBinding ) => {
-		const bindOption = notGlobal ? "bind" : "bindGlobal";
+	each( handlers, ( { actionName, includeInputs }, keyBinding ) => {
+		const bindOption = includeInputs ? "bindGlobal" : "bind";
 		Mousetrap[ bindOption ]( keyBinding, () => dispatch( actionName ) );
 	} );
 }

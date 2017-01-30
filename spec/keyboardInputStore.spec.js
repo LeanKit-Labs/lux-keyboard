@@ -47,7 +47,7 @@ describe( "keyboardInputStore", () => {
 						shortcuts: {
 							testShortcut: {
 								keys: [ "a" ],
-								notGlobal: true,
+								includeInputs: false,
 								info: "test.shortcuts.testShortcut"
 							}
 						}
@@ -67,7 +67,7 @@ describe( "keyboardInputStore", () => {
 						shortcuts: {
 							testShortcut: {
 								keys: [ "a" ],
-								notGlobal: true,
+								includeInputs: false,
 								info: "test.shortcuts.testShortcut"
 							}
 						}
@@ -91,7 +91,7 @@ describe( "keyboardInputStore", () => {
 						shortcuts: {
 							testShortcut: {
 								keys: [ "a" ],
-								notGlobal: true,
+								includeInputs: false,
 								info: "test.shortcuts.testShortcut"
 							}
 						}
@@ -207,7 +207,7 @@ describe( "keyboardInputStore", () => {
 							store.getCurrentKeyMap().should.eql( {
 								esc: {
 									actionName: "handleRequestToClose",
-									notGlobal: false
+									includeInputs: true
 								}
 							} );
 						} );
@@ -230,7 +230,7 @@ describe( "keyboardInputStore", () => {
 									shortcuts: {
 										testShortcut: {
 											keys: [ "a", "b" ],
-											notGlobal: true,
+											includeInputs: false,
 											info: "test.shortcuts.testShortcut"
 										},
 										anotherTestShortcut: {
@@ -261,12 +261,12 @@ describe( "keyboardInputStore", () => {
 						} );
 
 						store.getCurrentKeyMap().should.eql( {
-							a: { actionName: "testShortcut", notGlobal: true },
-							b: { actionName: "testShortcut", notGlobal: true },
-							c: { actionName: "anotherTestShortcut", notGlobal: false },
-							d: { actionName: "anotherTestShortcut", notGlobal: false },
-							e: { actionName: "testShortcut", notGlobal: false },
-							esc: { actionName: "handleRequestToClose", notGlobal: false }
+							a: { actionName: "testShortcut", includeInputs: false },
+							b: { actionName: "testShortcut", includeInputs: false },
+							c: { actionName: "anotherTestShortcut", includeInputs: true },
+							d: { actionName: "anotherTestShortcut", includeInputs: true },
+							e: { actionName: "testShortcut", includeInputs: true },
+							esc: { actionName: "handleRequestToClose", includeInputs: true }
 						} );
 					} );
 				} );

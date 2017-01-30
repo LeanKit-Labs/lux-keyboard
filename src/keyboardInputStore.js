@@ -64,10 +64,10 @@ export default new Store( {
 		const activeShortcuts = pick( keyMaps, [ "global", ...activeScopes ] );
 		// NOTE: we should warn on key binding collision in DEV mode!
 		return reduce( activeShortcuts, ( allShortcutsMemo, scope, scopeName ) => {
-			const mapForThisScope = reduce( scope.shortcuts, ( thisScopeShortcuts, { keys, notGlobal = false }, actionName ) => {
+			const mapForThisScope = reduce( scope.shortcuts, ( thisScopeShortcuts, { keys, includeInputs = true }, actionName ) => {
 				const keysToBind = isArray( keys ) ? keys : [ keys ];
 				keysToBind.forEach( key => {
-					thisScopeShortcuts[ key ] = { actionName, notGlobal };
+					thisScopeShortcuts[ key ] = { actionName, includeInputs };
 				} );
 				return thisScopeShortcuts;
 			}, {} );

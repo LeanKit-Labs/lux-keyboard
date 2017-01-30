@@ -19,14 +19,15 @@ describe( "KeyboardInputManager", () => {
 		keyMap = {
 			esc: {
 				actionName: "actionOne",
-				notGlobal: false
+				includeInputs: true
 			},
 			a: {
 				actionName: "actionTwo",
-				notGlobal: true
+				includeInputs: false
 			},
 			b: {
-				actionName: "actionThree"
+				actionName: "actionThree",
+				includeInputs: true
 			}
 		};
 
@@ -88,14 +89,15 @@ describe( "KeyboardInputManager", () => {
 					keyMap: {
 						esc: {
 							actionName: "actionOne",
-							notGlobal: false
+							includeInputs: true
 						},
 						c: {
 							actionName: "actionFour",
-							notGlobal: true
+							includeInputs: false
 						},
 						d: {
-							actionName: "actionFive"
+							actionName: "actionFive",
+							includeInputs: true
 						}
 					}
 				} );
