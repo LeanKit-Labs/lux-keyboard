@@ -12,22 +12,17 @@ export default class KeyboardShortcut extends React.Component {
 	}
 
 	render() {
-		return React.createElement(
-			this.props.component,
-			omit( this.props, [ "scope", "component" ] ),
-			this.props.children
-		);
+		const { children } = this.props;
+
+		return React.Children.count( children ) ?
+			React.cloneElement( React.Children.only( children ), omit( this.props, [ "scope", "children" ] ) ) :
+			null;
 	}
 }
 
 KeyboardShortcut.displayName = "KeyboardShortcut";
 
-KeyboardShortcut.defaultProps = {
-	component: "div"
-};
-
 KeyboardShortcut.propTypes = {
-	component: React.PropTypes.node,
 	scope: React.PropTypes.string.isRequired,
 	children: React.PropTypes.node
 };

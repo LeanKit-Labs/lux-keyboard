@@ -6,6 +6,7 @@ module.exports = {
 		ReactUtils: true,
 		lux: true,
 		postal: true,
-		proxyquire: true
+		proxyquire: true,
+		createElement: true
 	}
 };

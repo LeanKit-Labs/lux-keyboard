@@ -8,15 +8,7 @@ export default new Store( {
 		scopeStack: [],
 		keyMaps: {
 			// always active, no matter what
-			global: {
-				shortcuts: {
-					"mashup-showShortcutInfo": {
-						keys: [ "?" ],
-						notGlobal: true,
-						info: "global.shortcuts.showShortcutInfo"
-					}
-				}
-			}
+			global: {}
 			/*
 			leaving this in place until we move this to DialogManager, etc.
 				dialog: {
@@ -55,8 +47,9 @@ export default new Store( {
 		},
 		deactivateScope( scopeName ) {
 			const { scopeStack } = this.getState();
-			const updatedScope = remove( scopeStack[ scopeStack.length - 1 ], scopeName );
-			if ( isEmpty( updatedScope ) ) {
+			const activeScope = scopeStack[ scopeStack.length - 1 ];
+			remove( activeScope, name => name === scopeName );
+			if ( isEmpty( activeScope ) ) {
 				scopeStack.pop();
 			}
 			this.setState( { scopeStack } );
@@ -71,7 +64,7 @@ export default new Store( {
 		const activeShortcuts = pick( keyMaps, [ "global", ...activeScopes ] );
 		// NOTE: we should warn on key binding collision in DEV mode!
 		return reduce( activeShortcuts, ( allShortcutsMemo, scope, scopeName ) => {
-			const mapForThisScope = reduce( scope.shortcuts, ( thisScopeShortcuts, { keys, notGlobal }, actionName ) => {
+			const mapForThisScope = reduce( scope.shortcuts, ( thisScopeShortcuts, { keys, notGlobal = false }, actionName ) => {
 				const keysToBind = isArray( keys ) ? keys : [ keys ];
 				keysToBind.forEach( key => {
 					thisScopeShortcuts[ key ] = { actionName, notGlobal };

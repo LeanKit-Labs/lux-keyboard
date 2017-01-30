@@ -1,8 +1,8 @@
 import { dispatch } from "lux.js";
 import Mousetrap from "./MousetrapWrapper";
 
-export KeyboardShortcutScope from "./KeyboardShortcutScope";
-export KeyboardInputManager from "./KeyboardInputManager";
+export { default as KeyboardShortcutScope } from "./KeyboardShortcutScope";
+export { default as KeyboardInputManager } from "./KeyboardInputManager";
 
 /*
 	Example structure of keyMaps arg:

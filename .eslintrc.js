@@ -1,5 +1,5 @@
 module.exports = {
-	extends: [ "leankit", "leankit/es6" ],
+	extends: [ "leankit", "leankit/es6", "leankit/react" ],
 	parser: "babel-eslint",
 	plugins: [ "babel" ],
 	rules: {
