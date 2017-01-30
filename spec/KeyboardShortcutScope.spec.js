@@ -39,25 +39,24 @@ describe( "KeyboardShortcutScope", () => {
 	} );
 
 	describe( "when rendering", () => {
-		let child;
-
-		beforeEach( () => {
+		it( "should render the component", () => {
 			render( {
 				scope: "testScope",
 				children: <TestComponent />,
 				className: "what"
 			} );
 
-			child = component.find( TestComponent );
+			component.find( TestComponent ).should.be.present();
 		} );
 
-		it( "should render the specific component", () => {
-			child.should.be.present();
-		} );
+		it( "should render null when there is no children", () => {
+			render( {
+				scope: "testScope",
+				children: null,
+				className: "what"
+			} );
 
-		it( "should provide just additional props", () => {
-			child.props().should.not.have.any.keys( "scope", "component" );
-			child.props().className.should.equal( "what" );
+			component.children().should.have.lengthOf( 0 );
 		} );
 	} );
 

@@ -54,7 +54,7 @@ describe( "KeyboardInputManager", () => {
 
 	describe( "component", () => {
 		beforeEach( () => {
-			render( { handlers: keyMap } );
+			render( { keyMap } );
 		} );
 
 		describe( "when mounting", () => {
@@ -67,7 +67,7 @@ describe( "KeyboardInputManager", () => {
 					.and.calledWith( "a" );
 			} );
 
-			it( "should add handlers that dispatch", () => {
+			it( "should add keyMap that dispatch", () => {
 				trapStub.bindGlobal.getCall( 0 ).args[ 1 ]();
 				dispatchStub.should.be.calledWith( "actionOne" );
 
@@ -85,7 +85,7 @@ describe( "KeyboardInputManager", () => {
 				trapStub.bind.reset();
 
 				component.setProps( {
-					handlers: {
+					keyMap: {
 						esc: {
 							actionName: "actionOne",
 							notGlobal: false
@@ -112,7 +112,7 @@ describe( "KeyboardInputManager", () => {
 					.and.calledWith( "c" );
 			} );
 
-			it( "should bind with new handlers", () => {
+			it( "should bind with new keyMap", () => {
 				trapStub.bindGlobal.getCall( 0 ).args[ 1 ]();
 				dispatchStub.should.be.calledWith( "actionOne" );
 
@@ -135,7 +135,7 @@ describe( "KeyboardInputManager", () => {
 
 	describe( "luxWrapper", () => {
 		it( "should return state", () => {
-			luxConfig.getState().should.eql( { handlers: keyMap } );
+			luxConfig.getState().should.eql( { keyMap } );
 		} );
 	} );
 } );

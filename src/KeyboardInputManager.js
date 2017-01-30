@@ -19,12 +19,12 @@ function catchThatMouse( handlers ) {
 export class MouseTrapped extends React.PureComponent {
 
 	componentWillMount() {
-		catchThatMouse( this.props.handlers );
+		catchThatMouse( this.props.keyMap );
 	}
 
 	componentDidUpdate( prevProps, prevState ) {
 		Mousetrap.reset();
-		catchThatMouse( this.props.handlers );
+		catchThatMouse( this.props.keyMap );
 	}
 
 	componentWillUnmount() {
@@ -36,14 +36,15 @@ export class MouseTrapped extends React.PureComponent {
 	}
 }
 
-MouseTrapped.displayName = "MouseTrapped";
+MouseTrapped.propTypes = {
+	keyMap: React.PropTypes.object
+};
 
 export default luxWrapper( MouseTrapped, {
 	stores: [ "keyboard" ],
 	getState() {
-		const handlers = keyboardStore.getCurrentKeyMap();
 		return {
-			handlers
+			keyMap: keyboardStore.getCurrentKeyMap()
 		};
 	}
 } );
