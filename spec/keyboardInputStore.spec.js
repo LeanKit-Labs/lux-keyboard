@@ -170,6 +170,30 @@ describe( "keyboardInputStore", () => {
 					state.scopeStack.should.eql( [ [ "testThree" ], [ "test" ] ] );
 				} );
 			} );
+
+			describe( "when removing a scope that is not the active scope", () => {
+				describe( "when the scope group ends up empty", () => {
+					it( "should leave other scopes and remove the matching scope group", () => {
+						const state = store.getState();
+						state.scopeStack = [ [ "testThree" ], [ "test", "testTwo" ], [ "testZero" ] ];
+
+						dispatch( "deactivateScope", "testTwo" );
+
+						state.scopeStack.should.eql( [ [ "testThree" ], [ "test" ], [ "testZero" ] ] );
+					} );
+				} );
+
+				describe( "when the scope group still has additional scopes", () => {
+					it( "should leave other scopes and the matching scope group (minus the supplied scope)", () => {
+						const state = store.getState();
+						state.scopeStack = [ [ "testThree" ], [ "test" ], [ "testZero" ] ];
+
+						dispatch( "deactivateScope", "test" );
+
+						state.scopeStack.should.eql( [ [ "testThree" ], [ "testZero" ] ] );
+					} );
+				} );
+			} );
 		} );
 	} );
 
