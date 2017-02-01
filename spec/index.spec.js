@@ -10,6 +10,7 @@ describe( "lux-keyboard", () => {
 		instance = proxyquire( "../src/index", {
 			"./KeyboardShortcutScope": {},
 			"./KeyboardInputManager": {},
+			"./keyboardShortcutWrapper": {},
 			"lux.js": { dispatch: dispatchStub },
 			"./MousetrapWrapper": { reset: resetStub }
 		} );

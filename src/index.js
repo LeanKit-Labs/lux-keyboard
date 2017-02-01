@@ -3,7 +3,7 @@ import Mousetrap from "./MousetrapWrapper";
 
 export { default as KeyboardShortcutScope } from "./KeyboardShortcutScope";
 export { default as KeyboardInputManager } from "./KeyboardInputManager";
-
+export { default as keyboardShortcutWrapper } from "./keyboardShortcutWrapper";
 /*
 	Example structure of keyMaps arg:
 
