@@ -47,11 +47,18 @@ export default new Store( {
 		},
 		deactivateScope( scopeName ) {
 			const { scopeStack } = this.getState();
-			const activeScope = scopeStack[ scopeStack.length - 1 ];
-			remove( activeScope, name => name === scopeName );
-			if ( isEmpty( activeScope ) ) {
-				scopeStack.pop();
+
+			for ( let i = scopeStack.length - 1; i >= 0; i-- ) {
+				const activeScope = scopeStack[ i ];
+				if ( activeScope.includes( scopeName ) ) {
+					remove( activeScope, name => name === scopeName );
+					if ( isEmpty( activeScope ) ) {
+						scopeStack.splice( i, 1 );
+					}
+					break;
+				}
 			}
+
 			this.setState( { scopeStack } );
 		}
 	},
