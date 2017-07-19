@@ -222,7 +222,8 @@ describe( "keyboardInputStore", () => {
 									shortcuts: {
 										handleRequestToClose: {
 											keys: [ "esc" ],
-											info: "default.shortcuts.closeDialog"
+											info: "default.shortcuts.closeDialog",
+											preventDefault: false
 										}
 									}
 								}
@@ -231,7 +232,8 @@ describe( "keyboardInputStore", () => {
 							store.getCurrentKeyMap().should.eql( {
 								esc: {
 									actionName: "handleRequestToClose",
-									includeInputs: true
+									includeInputs: true,
+									preventDefault: false
 								}
 							} );
 						} );
@@ -246,7 +248,8 @@ describe( "keyboardInputStore", () => {
 									shortcuts: {
 										handleRequestToClose: {
 											keys: [ "a", "esc" ],
-											info: "default.shortcuts.closeDialog"
+											info: "default.shortcuts.closeDialog",
+											preventDefault: false
 										}
 									}
 								},
@@ -285,12 +288,12 @@ describe( "keyboardInputStore", () => {
 						} );
 
 						store.getCurrentKeyMap().should.eql( {
-							a: { actionName: "testShortcut", includeInputs: false },
-							b: { actionName: "testShortcut", includeInputs: false },
-							c: { actionName: "anotherTestShortcut", includeInputs: true },
-							d: { actionName: "anotherTestShortcut", includeInputs: true },
-							e: { actionName: "testShortcut", includeInputs: true },
-							esc: { actionName: "handleRequestToClose", includeInputs: true }
+							a: { actionName: "testShortcut", includeInputs: false, preventDefault: true },
+							b: { actionName: "testShortcut", includeInputs: false, preventDefault: true },
+							c: { actionName: "anotherTestShortcut", includeInputs: true, preventDefault: true },
+							d: { actionName: "anotherTestShortcut", includeInputs: true, preventDefault: true },
+							e: { actionName: "testShortcut", includeInputs: true, preventDefault: true },
+							esc: { actionName: "handleRequestToClose", includeInputs: true, preventDefault: false }
 						} );
 					} );
 				} );
