@@ -1,6 +1,6 @@
 {
   "name": "lux-keyboard",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "React component + lux store utilities for managing contextual keyboard shortcut modes.",
   "main": "src/index.js",
   "scripts": {
