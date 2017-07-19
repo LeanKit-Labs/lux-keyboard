@@ -27,7 +27,8 @@ describe( "KeyboardInputManager", () => {
 			},
 			b: {
 				actionName: "actionThree",
-				includeInputs: true
+				includeInputs: true,
+				preventDefault: false
 			}
 		};
 
@@ -68,15 +69,22 @@ describe( "KeyboardInputManager", () => {
 					.and.calledWith( "a" );
 			} );
 
-			it( "should add keyMap that dispatch", () => {
-				trapStub.bindGlobal.getCall( 0 ).args[ 1 ]();
-				dispatchStub.should.be.calledWith( "actionOne" );
+			it( "should add keyMap that dispatches", () => {
+				const preventDefault = sinon.stub();
 
-				trapStub.bindGlobal.getCall( 1 ).args[ 1 ]();
+				trapStub.bindGlobal.getCall( 0 ).args[ 1 ]( { preventDefault } );
+				dispatchStub.should.be.calledWith( "actionOne" );
+				preventDefault.should.be.calledOnce();
+
+				preventDefault.reset();
+				trapStub.bindGlobal.getCall( 1 ).args[ 1 ]( { preventDefault } );
+				preventDefault.should.not.be.called();
 				dispatchStub.should.be.calledWith( "actionThree" );
 
-				trapStub.bind.getCall( 0 ).args[ 1 ]();
+				preventDefault.reset();
+				trapStub.bind.getCall( 0 ).args[ 1 ]( { preventDefault } );
 				dispatchStub.should.be.calledWith( "actionTwo" );
+				preventDefault.should.be.calledOnce();
 			} );
 		} );
 
@@ -93,7 +101,8 @@ describe( "KeyboardInputManager", () => {
 						},
 						c: {
 							actionName: "actionFour",
-							includeInputs: false
+							includeInputs: false,
+							preventDefault: false
 						},
 						d: {
 							actionName: "actionFive",
@@ -115,14 +124,21 @@ describe( "KeyboardInputManager", () => {
 			} );
 
 			it( "should bind with new keyMap", () => {
-				trapStub.bindGlobal.getCall( 0 ).args[ 1 ]();
+				const preventDefault = sinon.stub();
+
+				trapStub.bindGlobal.getCall( 0 ).args[ 1 ]( { preventDefault } );
 				dispatchStub.should.be.calledWith( "actionOne" );
+				preventDefault.should.be.calledOnce();
 
-				trapStub.bindGlobal.getCall( 1 ).args[ 1 ]();
+				preventDefault.reset();
+				trapStub.bindGlobal.getCall( 1 ).args[ 1 ]( { preventDefault } );
 				dispatchStub.should.be.calledWith( "actionFive" );
+				preventDefault.should.be.calledOnce();
 
-				trapStub.bind.getCall( 0 ).args[ 1 ]();
+				preventDefault.reset();
+				trapStub.bind.getCall( 0 ).args[ 1 ]( { preventDefault } );
 				dispatchStub.should.be.calledWith( "actionFour" );
+				preventDefault.should.not.be.called();
 			} );
 		} );
 

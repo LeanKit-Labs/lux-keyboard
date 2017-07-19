@@ -10,9 +10,15 @@ import { each } from "lodash";
 import Mousetrap from "./MousetrapWrapper";
 
 function catchThatMouse( handlers ) {
-	each( handlers, ( { actionName, includeInputs }, keyBinding ) => {
+	each( handlers, ( { actionName, includeInputs, preventDefault }, keyBinding ) => {
 		const bindOption = includeInputs ? "bindGlobal" : "bind";
-		Mousetrap[ bindOption ]( keyBinding, () => dispatch( actionName ) );
+		Mousetrap[ bindOption ]( keyBinding, e => {
+			// explicitly checking type, since preventDefault is optional + true by default
+			if ( preventDefault !== false ) {
+				e.preventDefault();
+			}
+			dispatch( actionName );
+		} );
 	} );
 }
 
