@@ -38,10 +38,11 @@ export default new Store( {
 			const scope = keyMaps[ scopeName ];
 			// err on the side of assuming scopes are exclusive
 			const isExclusive = scope.isExclusive !== false;
+			const arrayMethod = scope.baseScope ? "unshift" : "push";
 			if ( isExclusive || scopeStack.length === 0 ) {
-				scopeStack.push( [ scopeName ] );
+				scopeStack[ arrayMethod ]( [ scopeName ] );
 			} else {
-				scopeStack[ scopeStack.length - 1 ].push( scopeName );
+				scopeStack[ scopeStack.length - 1 ][ arrayMethod ]( scopeName );
 			}
 			this.setState( { scopeStack } );
 		},

@@ -109,41 +109,89 @@ describe( "keyboardInputStore", () => {
 			} );
 
 			describe( "when the scope is exclusive", () => {
-				it( "should add as a new scope", () => {
-					const state = store.getState();
-					state.scopeStack = [ [ "testTwo" ] ];
+				describe( "and the scope is not a base scope", () => {
+					it( "should add as a new scope", () => {
+						const state = store.getState();
+						state.scopeStack = [ [ "testTwo" ] ];
 
-					dispatch( "activateScope", "test" );
+						dispatch( "activateScope", "test" );
 
-					state.scopeStack.should.eql( [
-						[ "testTwo" ],
-						[ "test" ]
-					] );
+						state.scopeStack.should.eql( [
+							[ "testTwo" ],
+							[ "test" ]
+						] );
+					} );
+				} );
+
+				describe( "and the scope is a base scope", () => {
+					it( "should add the scope to the beginning of outer stack", () => {
+						const state = store.getState();
+						state.scopeStack = [ [ "testTwo" ] ];
+						state.keyMaps.test = { baseScope: true };
+
+						dispatch( "activateScope", "test" );
+
+						state.scopeStack.should.eql( [
+							[ "test" ],
+							[ "testTwo" ]
+						] );
+					} );
 				} );
 			} );
 
 			describe( "when the scopeStack is empty", () => {
-				it( "should add the scope to the stack", () => {
-					const state = store.getState();
+				describe( "and the scope is not a base scope", () => {
+					it( "should add the scope to the stack", () => {
+						const state = store.getState();
 
-					dispatch( "activateScope", "test" );
+						dispatch( "activateScope", "test" );
 
-					state.scopeStack.should.eql( [
-						[ "test" ]
-					] );
+						state.scopeStack.should.eql( [
+							[ "test" ]
+						] );
+					} );
+				} );
+
+				describe( "and the scope is a base scope", () => {
+					it( "should add the scope to the beginning of outer stack", () => {
+						const state = store.getState();
+						state.keyMaps.test = { baseScope: true };
+						dispatch( "activateScope", "test" );
+
+						state.scopeStack.should.eql( [
+							[ "test" ]
+						] );
+					} );
 				} );
 			} );
 
 			describe( "when the scopeStack has items and scope is not exclusive", () => {
-				it( "should add to the existing scope", () => {
-					const state = store.getState();
-					state.scopeStack = [ [ "test" ] ];
+				describe( "and the scope is not a base scope", () => {
+					it( "should add to the existing scope", () => {
+						const state = store.getState();
+						state.scopeStack = [ [ "test" ] ];
 
-					dispatch( "activateScope", "testTwo" );
+						dispatch( "activateScope", "testTwo" );
 
-					state.scopeStack.should.eql( [
-						[ "test", "testTwo" ]
-					] );
+						state.scopeStack.should.eql( [
+							[ "test", "testTwo" ]
+						] );
+					} );
+				} );
+
+				describe( "and the scope is a base scope", () => {
+					it( "should add the scope to the beginning of the last scope array in the stack", () => {
+						const state = store.getState();
+						state.scopeStack = [ [ "first" ], [ "test" ] ];
+						state.keyMaps.testTwo = { baseScope: true, isExclusive: false };
+
+						dispatch( "activateScope", "testTwo" );
+
+						state.scopeStack.should.eql( [
+							[ "first" ],
+							[ "testTwo", "test" ]
+						] );
+					} );
 				} );
 			} );
 		} );
