@@ -1,5 +1,9 @@
 ## 2.x
 
+### 2.1.0
+
+* Added support for baseScope to be set on a keyboard, to indicate that it should go at the bottom/beginning of a scope stack.
+
 ### 2.0.0
 
 * Added behavior to preventDefault by default. Lots of defaults. Being prevented...
