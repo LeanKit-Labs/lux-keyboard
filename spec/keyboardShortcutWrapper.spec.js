@@ -11,7 +11,7 @@ describe( "keyboardShortcutWrapper", () => {
 	beforeEach( () => {
 		TestComponent = React.createClass( {
 			render() {
-				return <span { ...this.props } />;
+				return <span />;
 			}
 		} );
 
@@ -70,9 +70,9 @@ describe( "keyboardShortcutWrapper", () => {
 		} );
 
 		it( "should pass props down the the component", () => {
-			render( { foo: "bar" } );
+			render( { className: "bar" } );
 
-			component.find( TestComponent ).should.have.prop( "foo", "bar" );
+			component.find( TestComponent ).should.have.prop( "className", "bar" );
 		} );
 
 		it( "should provide an activeScope prop", () => {
