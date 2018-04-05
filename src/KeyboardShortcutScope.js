@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { dispatch } from "lux.js";
 
 export default class KeyboardShortcutScope extends React.Component {
@@ -18,6 +19,6 @@ export default class KeyboardShortcutScope extends React.Component {
 }
 
 KeyboardShortcutScope.propTypes = {
-	scope: React.PropTypes.string.isRequired,
-	children: React.PropTypes.node
+	scope: PropTypes.string.isRequired,
+	children: PropTypes.node
 };
