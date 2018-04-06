@@ -4,6 +4,7 @@
 	the lux store mixin.
 */
 import React from "react";
+import PropTypes from "prop-types";
 import { luxWrapper, dispatch } from "lux.js";
 import keyboardStore from "./keyboardInputStore";
 import { each } from "lodash";
@@ -23,12 +24,11 @@ function catchThatMouse( handlers ) {
 }
 
 export class MouseTrapped extends React.PureComponent {
-
 	componentWillMount() {
 		catchThatMouse( this.props.keyMap );
 	}
 
-	componentDidUpdate( prevProps, prevState ) {
+	componentDidUpdate() {
 		Mousetrap.reset();
 		catchThatMouse( this.props.keyMap );
 	}
@@ -43,7 +43,7 @@ export class MouseTrapped extends React.PureComponent {
 }
 
 MouseTrapped.propTypes = {
-	keyMap: React.PropTypes.object
+	keyMap: PropTypes.object
 };
 
 export default luxWrapper( MouseTrapped, {

@@ -9,11 +9,8 @@ describe( "keyboardShortcutWrapper", () => {
 	}
 
 	beforeEach( () => {
-		TestComponent = React.createClass( {
-			render() {
-				return <span />;
-			}
-		} );
+		TestComponent = () => <span />;
+		TestComponent.displayName = "TestComponent";
 
 		dispatchStub = sinon.stub();
 		wrapper = proxyquire( "../src/keyboardShortcutWrapper", {

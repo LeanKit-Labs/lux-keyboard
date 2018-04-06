@@ -3,7 +3,7 @@ module.exports = {
 	globals: {
 		React: false,
 		ReactDOM: false,
-		ReactUtils: false,
+		sinon: false,
 		lux: false,
 		postal: false,
 		proxyquire: false

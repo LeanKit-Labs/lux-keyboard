@@ -8,11 +8,7 @@ describe( "KeyboardShortcutScope", () => {
 	}
 
 	beforeEach( () => {
-		TestComponent = React.createClass( {
-			render() {
-				return <span { ...this.props } />;
-			}
-		} );
+		TestComponent = props => <span { ...props } />;
 
 		dispatchStub = sinon.stub();
 		KeyboardShortcutScope = proxyquire( "../src/KeyboardShortcutScope", {

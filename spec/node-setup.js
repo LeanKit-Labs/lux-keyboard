@@ -8,6 +8,13 @@ import "sinon-as-promised";
 import postal from "postal";
 import lux from "lux.js";
 
+import Enzyme from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+
+Enzyme.configure( {
+	adapter: new Adapter()
+} );
+
 global.proxyquire = proxyFn.noPreserveCache().noCallThru();
 global.document = jsdom( "<html><body></body></html>" );
 global.window = document.defaultView;
@@ -20,7 +27,6 @@ chai.use( require( "chai-enzyme" )() );
 global.should = chai.should();
 global.React = require( "react" );
 global.ReactDOM = require( "react-dom" );
-global.ReactUtils = require( "react-addons-test-utils" );
 global.sinon = sinon;
 global.postal = postal;
 global.lux = lux;
