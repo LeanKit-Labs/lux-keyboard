@@ -71,7 +71,7 @@ export default new Store( {
 		const activeScopes = scopeStack[ scopeStack.length - 1 ] || [];
 		const activeShortcuts = pick( keyMaps, [ "global", ...activeScopes ] );
 		// NOTE: we should warn on key binding collision in DEV mode!
-		return reduce( activeShortcuts, ( allShortcutsMemo, scope, scopeName ) => {
+		return reduce( activeShortcuts, ( allShortcutsMemo, scope ) => {
 			const mapForThisScope = reduce( scope.shortcuts, ( thisScopeShortcuts, { keys, includeInputs = true, preventDefault = true }, actionName ) => {
 				const keysToBind = isArray( keys ) ? keys : [ keys ];
 				keysToBind.forEach( key => {

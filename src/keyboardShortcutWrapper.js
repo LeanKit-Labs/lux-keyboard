@@ -38,7 +38,7 @@ export default function keyboardShortcutWrapper( Component, { initialScopeToActi
 				<Component
 					activateScope={ this.activateScope }
 					deactivateScope={ this.deactivateScope }
-					{...this.props } />
+					{ ...this.props } />
 			);
 		}
 	}
