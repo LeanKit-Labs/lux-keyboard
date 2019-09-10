@@ -1,6 +1,6 @@
 import "babel-polyfill";
 import proxyFn from "proxyquire";
-import { jsdom } from "jsdom";
+import jsdom from "jsdom";
 import chai from "chai";
 
 import sinon from "sinon";
@@ -16,9 +16,14 @@ Enzyme.configure( {
 } );
 
 global.proxyquire = proxyFn.noPreserveCache().noCallThru();
-global.document = jsdom( "<html><body></body></html>" );
-global.window = document.defaultView;
-global.navigator = { userAgent: "Not Chrom3" };
+const { window } = new jsdom.JSDOM( "<html><body></body></html>" );
+Object.assign( global, {
+	window,
+	document: window.document,
+	HTMLElement: window.HTMLElement,
+	navigator: { userAgent: "Not Chrom3" },
+	BROWSER: false
+} );
 global.chai = chai;
 chai.use( require( "dirty-chai" ) );
 chai.use( require( "sinon-chai" ) );
