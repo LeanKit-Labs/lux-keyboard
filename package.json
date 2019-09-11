@@ -82,7 +82,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.15",
-    "lux.js": "^2.0.0-5",
+    "lux.js": "^2.0.0-11",
     "prop-types": "^15.6.1",
     "react": "^16.3.0"
   }
