@@ -1,3 +1,11 @@
+## 4.x
+
+### 4.0.0
+
+* Upgraded to 2.0.0 of lux.js
+* Updated to latest pre-release of lux.js
+* Upgraded dependencies
+
 ## 3.x
 
 ### 3.0.0
