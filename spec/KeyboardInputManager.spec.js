@@ -1,4 +1,5 @@
 import { mount } from "enzyme";
+import { act } from "react-dom/test-utils";
 
 describe( "KeyboardInputManager", () => {
 	let keyMap, trapStub, luxConfig, dispatchStub, component, KeyboardInputManager;
@@ -29,6 +30,10 @@ describe( "KeyboardInputManager", () => {
 				actionName: "actionThree",
 				includeInputs: true,
 				preventDefault: false
+			},
+			c: {
+				actionName: "actionFour",
+				allowRepeat: true
 			}
 		};
 
@@ -65,26 +70,40 @@ describe( "KeyboardInputManager", () => {
 					.and.calledWith( "esc" )
 					.and.calledWith( "b" );
 
-				trapStub.bind.should.be.calledOnce
-					.and.calledWith( "a" );
+				trapStub.bind.should.be.calledTwice
+					.and.calledWith( "a" )
+					.and.calledWith( "c" );
 			} );
 
-			it( "should add keyMap that dispatches", () => {
+			it( "should add global handler that does not allow repeats", () => {
 				const preventDefault = sinon.stub();
 
 				trapStub.bindGlobal.getCall( 0 ).args[ 1 ]( { preventDefault } );
-				dispatchStub.should.be.calledWith( "actionOne" );
-				preventDefault.should.be.calledOnce();
+				trapStub.bindGlobal.getCall( 0 ).args[ 1 ]( { preventDefault, repeat: true } );
+				dispatchStub.should.be.calledOnce.and.calledWith( "actionOne" );
+				preventDefault.should.be.calledTwice();
+			} );
 
-				preventDefault.reset();
+			it( "should add global handler that does not prevent default", () => {
+				const preventDefault = sinon.stub();
 				trapStub.bindGlobal.getCall( 1 ).args[ 1 ]( { preventDefault } );
 				preventDefault.should.not.be.called();
 				dispatchStub.should.be.calledWith( "actionThree" );
+			} );
 
-				preventDefault.reset();
+			it( "should add local handler that dispatches", () => {
+				const preventDefault = sinon.stub();
 				trapStub.bind.getCall( 0 ).args[ 1 ]( { preventDefault } );
 				dispatchStub.should.be.calledWith( "actionTwo" );
 				preventDefault.should.be.calledOnce();
+			} );
+
+			it( "should add local handler that allows repeats", () => {
+				const preventDefault = sinon.stub();
+				trapStub.bind.getCall( 1 ).args[ 1 ]( { preventDefault } );
+				trapStub.bind.getCall( 1 ).args[ 1 ]( { preventDefault, repeat: true } );
+				dispatchStub.should.be.calledTwice.and.calledWith( "actionFour" );
+				preventDefault.should.be.calledTwice();
 			} );
 		} );
 
@@ -143,8 +162,15 @@ describe( "KeyboardInputManager", () => {
 		} );
 
 		describe( "when unmounting", () => {
+			beforeEach( () => {
+				render( { keyMap } );
+			} );
+
 			it( "should reset on unmount", () => {
-				component.unmount();
+				act( () => {
+					component.unmount();
+					component = null;
+				} );
 
 				trapStub.reset.should.be.calledOnce();
 			} );

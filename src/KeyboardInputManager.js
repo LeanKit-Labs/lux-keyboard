@@ -11,20 +11,26 @@ import { each } from "lodash";
 import Mousetrap from "./MousetrapWrapper";
 
 function catchThatMouse( handlers ) {
-	each( handlers, ( { actionName, includeInputs, preventDefault }, keyBinding ) => {
+	each( handlers, ( { actionName, includeInputs, preventDefault, allowRepeat }, keyBinding ) => {
 		const bindOption = includeInputs ? "bindGlobal" : "bind";
 		Mousetrap[ bindOption ]( keyBinding, e => {
 			// explicitly checking type, since preventDefault is optional + true by default
 			if ( preventDefault !== false ) {
 				e.preventDefault();
 			}
+
+			if ( !allowRepeat && e.repeat === true ) {
+				return;
+			}
+
 			dispatch( actionName );
 		} );
 	} );
 }
 
 export class MouseTrapped extends React.PureComponent {
-	componentWillMount() {
+	constructor( props ) {
+		super( props );
 		catchThatMouse( this.props.keyMap );
 	}
 

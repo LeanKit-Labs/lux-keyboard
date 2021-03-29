@@ -1,9 +1,10 @@
 {
-	"auxiliaryCommentBefore": "istanbul ignore next - babel generated code",
 	"compact": false,
-	"presets": [ "es2015-without-strict", "react", "stage-0" ],
-	"plugins": [ "transform-runtime", "add-module-exports" ],
-	"env": {
-		"development": {}
-	}
+	"presets": [
+		"@babel/env",
+		"@babel/react"
+	],
+	"plugins": [
+		"babel-plugin-add-module-exports"
+	]
 }

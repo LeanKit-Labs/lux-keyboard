@@ -1,4 +1,5 @@
 import { mount } from "enzyme";
+import { act } from "react-dom/test-utils";
 
 describe( "KeyboardShortcutScope", () => {
 	let KeyboardShortcutScope, dispatchStub, component, TestComponent;
@@ -60,7 +61,11 @@ describe( "KeyboardShortcutScope", () => {
 		it( "should dispatch deactiveScope", () => {
 			render( { scope: "testScope" } );
 			dispatchStub.reset();
-			component.unmount();
+
+			act( () => {
+				component.unmount();
+				component = null;
+			} );
 
 			dispatchStub.should.be.calledOnce
 				.and.calledWith( "deactivateScope", "testScope" );
