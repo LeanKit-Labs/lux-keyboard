@@ -1,6 +1,6 @@
 {
   "name": "lux-keyboard",
-  "version": "4.0.0",
+  "version": "5.0.0-prevent-repeat.0",
   "description": "React component + lux store utilities for managing contextual keyboard shortcut modes.",
   "license": "MIT",
   "main": "src/index.js",
