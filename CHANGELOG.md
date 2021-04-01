@@ -1,3 +1,11 @@
+## 5.x
+
+### 5.0.0
+
+* Upgraded dependencies
+* Breaking Change: Added mousetrap as a direct dependency
+* Breaking Change: Added repeat prevention, on by default. You can opt-out on a per key basis with `allowRepeat: true`
+
 ## 4.x
 
 ### 4.0.0
